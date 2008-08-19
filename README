@@ -2,7 +2,7 @@ Author:      Andre Foeken - Nedap
 Article:     http://www.movesonrails.com/articles/2008/08/19/webrat-story-steps
 Bug Tracker: http://nedaphealthcare.lighthouseapp.com/projects/15738/home
 
-Selection of commonly used steps to speed up story creation.
+Selection of commonly used steps to speed up rspec story creation.
 
 Dependencies:
 
@@ -15,8 +15,8 @@ Dependencies:
 
 Installation:
 
-- Copy the webrat directory to your vendor/plugins directory
-- Copy the webrat story steps directory to your vendor/plugins directory
+- Install my forked Webrat in your vendor/plugins directory
+- Copy the webrat_story_steps directory to your vendor/plugins directory
 - Run ./script/generate stories
 
 - Start writing stories!
@@ -26,5 +26,6 @@ Installation:
 
 Customizing:
 
-You can add you own steps (that apply ONLY to your app) to the custom_steps directory that was generated.
-Any general steps may be added to the plugin (please submit them).
+You can add you own steps (that apply ONLY to your app) to the custom_steps directory that was generated. Just as you would have added normal Rspec steps. Please submit any general steps!
+
+Note that these steps should mix with any steps you have already defined as long as the step group names differ.
