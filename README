@@ -17,7 +17,8 @@ Installation:
 
 - Start writing stories!
 
-** Make sure that you read the stories/custom_steps/required_model_attributes.rb file to prevent any validation warnings! **
+* Read the Wiki for all the possible steps
+* Make sure that you read the stories/custom_steps/required_model_attributes.rb file to prevent any validation warnings!
 
 Customizing:
 
