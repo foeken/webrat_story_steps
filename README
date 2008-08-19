@@ -6,7 +6,8 @@ Dependencies:
 - Rspec On Rails
 - Chronic
 
-Adapted Webrat plugin (supplied with this plugin)
+- Adapted Webrat plugin (http://github.com/foeken/webrat)
+  CLONE @ git://github.com/foeken/webrat.git
 
 Installation:
 
