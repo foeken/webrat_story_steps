@@ -1,0 +1,24 @@
+Selection of commonly used steps to speed up story creation.
+
+Dependencies:
+
+- Rspec
+- Rspec On Rails
+- Chronic
+
+Adapted Webrat plugin (supplied with this plugin)
+
+Installation:
+
+- Copy the webrat directory to your vendor/plugins directory
+- Copy the webrat story steps directory to your vendor/plugins directory
+- Run ./script/generate stories
+
+- Start writing stories!
+
+** Make sure that you read the stories/custom_steps/required_model_attributes.rb file to prevent any validation warnings! **
+
+Customizing:
+
+You can add you own steps (that apply ONLY to your app) to the custom_steps directory that was generated.
+Any general steps may be added to the plugin (please submit them).

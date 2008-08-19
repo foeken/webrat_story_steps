@@ -1,0 +1,13 @@
+Story: Example story
+
+  As a user
+  I want to be able to log in and out
+  So that I can access the system
+  
+  Scenario: Logging in
+  
+    ...
+    
+  Scenario: Logging out
+
+    ...
