@@ -1,7 +1,7 @@
 steps_for(:navigation) do
 
   # When he clicks the 'Employees' link
-  When(/(he|she) clicks the '(.*)' link/) do |gender,link|
+  When(/(he|she) clicks the ('|")(.*)('|") link/) do |gender,single_or_double_1,link,single_or_double_2|
     clicks_link(link)
   end
   
@@ -12,7 +12,7 @@ steps_for(:navigation) do
   end
   
   # When he clicks the show link for the user with name 'Foeken'
-  When(/(he|she) clicks the show link for the (.*) with (.*) '(.*)'/) do |gender,klass,attribute,value|
+  When(/(he|she) clicks the show link for the (.*) with (.*) ('|")(.*)('|")/) do |gender,klass,attribute,single_or_double_1,value,single_or_double_2|
     klass = klass.split(' ').join('_') if klass.split(' ').length > 1
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
@@ -21,7 +21,7 @@ steps_for(:navigation) do
   end
   
   # When he clicks the edit link for the user with name 'Foeken'
-  When(/(he|she) clicks the edit link for the (.*) with (.*) '(.*)'/) do |gender,klass,attribute,value|
+  When(/(he|she) clicks the edit link for the (.*) with (.*) ('|")(.*)('|")/) do |gender,klass,attribute,single_or_double_1,value,single_or_double_2|
     klass = klass.split(' ').join('_') if klass.split(' ').length > 1
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
@@ -30,7 +30,7 @@ steps_for(:navigation) do
   end
   
   # When he clicks the destroy link for the user with name 'Foeken'
-  When(/(he|she) clicks the destroy link for the (.*) with (.*) '(.*)'/) do |gender,klass,attribute,value|
+  When(/(he|she) clicks the destroy link for the (.*) with (.*) ('|")(.*)('|")/) do |gender,klass,attribute,single_or_double_1,value,single_or_double_2|
     klass = klass.split(' ').join('_') if klass.split(' ').length > 1
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
