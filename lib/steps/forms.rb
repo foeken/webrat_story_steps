@@ -80,12 +80,20 @@ steps_for(:forms) do
   
   # When he selects 'Partner name'
   When(/(he|she) selects '(.*)'/) do |gender,value|
-    selects(value)
+    selects(value)      
+  end
+  
+  # When he picks 'Partner name' (for both select/radio fields)
+  When(/(he|she) picks '(.*)'/) do |gender,value|
+    begin
+      chooses(value)
+    rescue
+      selects(value)
+    end
   end
   
   # When he chooses 'Male'
   When(/(he|she) chooses '(.*)'/) do |gender,value|
-    save_and_open_page
     chooses(value)
   end
   
