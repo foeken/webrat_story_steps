@@ -83,6 +83,12 @@ steps_for(:forms) do
     selects(value)
   end
   
+  # When he chooses 'Male'
+  When(/(he|she) chooses '(.*)'/) do |gender,value|
+    save_and_open_page
+    chooses(value)
+  end
+  
   # When he (un)checks 'Enabled'
   When(/(he|she) (checks|unchecks) '(.*)'/) do |gender,checks_or_unchecks,value|
     if checks_or_unchecks == "checks"
