@@ -17,7 +17,7 @@ steps_for(:navigation) do
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
     id = klass.camelcase.constantize.send("find_by_#{attribute}",value).id
-    visits "/#{klass.pluralize.downcase}/#{id}"
+    clicks_get_link "/#{klass.pluralize.downcase}/#{id}"
   end
   
   # When he clicks the edit link for the user with name 'Foeken'
@@ -26,7 +26,7 @@ steps_for(:navigation) do
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
     id = klass.camelcase.constantize.send("find_by_#{attribute}",value).id
-    visits "/#{klass.pluralize.downcase}/edit/#{id}"
+    clicks_get_link "/#{klass.pluralize.downcase}/#{id}/edit"
   end
   
   # When he clicks the destroy link for the user with name 'Foeken'
@@ -35,7 +35,7 @@ steps_for(:navigation) do
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
     id = klass.camelcase.constantize.send("find_by_#{attribute}",value).id
-    visits "/#{klass.pluralize.downcase}/#{id}", :delete
+    clicks_delete_link "/#{klass.pluralize.downcase}/#{id}"
   end
   
   # When he clicks the destroy link
