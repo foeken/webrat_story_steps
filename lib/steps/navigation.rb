@@ -1,7 +1,7 @@
 steps_for(:navigation) do
 
   # When he clicks the 'Employees' link
-  When(/(he|she) clicks (the|the first|the second|the third) '(.*)' link/) do |gender,count,link|
+  When(/(he|she) clicks (the|the first|the second|the third) ('|")(.*)('|") link/) do |gender,count,single_or_double_1,link,single_or_double_2|
     
     if count == "the"
       browser.clicks_link(link)
@@ -44,10 +44,11 @@ steps_for(:navigation) do
       end
       
     end
-  end
     
+  end
+      
   # When he clicks the show link for the user with name 'Foeken'
-  When(/(he|she) clicks the show link for the (.*) with (.*) '(.*)'/) do |gender,klass,attribute,value|
+  When(/(he|she) clicks the show link for the (.*) with (.*) ('|")(.*)('|")/) do |gender,klass,attribute,single_or_double_1,value,single_or_double_2|
     klass = klass.split(' ').join('_') if klass.split(' ').length > 1
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
@@ -56,20 +57,22 @@ steps_for(:navigation) do
   end
   
   # When he clicks the edit link for the user with name 'Foeken'
-  When(/(he|she) clicks the edit link for the (.*) with (.*) '(.*)'/) do |gender,klass,attribute,value|
+  When(/(he|she) clicks the edit link for the (.*) with (.*) ('|")(.*)('|")/) do |gender,klass,attribute,single_or_double_1,value,single_or_double_2|
     klass = klass.split(' ').join('_') if klass.split(' ').length > 1
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
     id = klass.camelcase.constantize.send("find_by_#{attribute}",value).id
+
     browser.visits "/#{klass.pluralize.downcase}/edit/#{id}"
   end
   
   # When he clicks the destroy link for the user with name 'Foeken'
-  When(/(he|she) clicks the destroy link for the (.*) with (.*) '(.*)'/) do |gender,klass,attribute,value|
+  When(/(he|she) clicks the destroy link for the (.*) with (.*) ('|")(.*)('|")/) do |gender,klass,attribute,single_or_double_1,value,single_or_double_2|
     klass = klass.split(' ').join('_') if klass.split(' ').length > 1
     attribute = attribute.split(' ').join('_') if attribute.split(' ').length > 1
     
     id = klass.camelcase.constantize.send("find_by_#{attribute}",value).id
+
     link = "/#{klass.pluralize.downcase}/#{id}"    
     
     if selenium?    
