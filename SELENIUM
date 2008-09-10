@@ -25,7 +25,7 @@ We will add a 'story_selenium_spec.rb' for the story we want to run through sele
 
 1.) Run './script/generate stories' again if you installed the previous version without selenium support. It will add the helper to your stories directory.
 
-2.) Run 'rake selenium:configure' to create a selenium config file in 'config/selenium.yml'. Make sure you change the browser setting to 'chrome' (I didn't get it to work using the firefox setting). Don't worry, it'll still run the tests in firefox not the recently released Chrome browser.
+2.) Run 'p vendor/plugins/selenium-specr/config/selenium.yml config/selenium.yml' to create a selenium config file in 'config/selenium.yml'. Make sure you change the browser setting to 'chrome' (I didn't get it to work using the firefox setting). Don't worry, it'll still run the tests in firefox not the recently released Chrome browser.
 
 3.) Now run your app in test mode: './script/server -e test'
 
