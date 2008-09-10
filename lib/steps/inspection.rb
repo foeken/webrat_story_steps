@@ -4,7 +4,7 @@ steps_for(:inspection) do
   # Then he should not see the long date 'today'                  ==> 7 july 2008
   # Then he should not see the short date 'today'                 ==> 07-07-2008
   Then(/(he|she) (should|should not) see the (word|words|long date|long dates|short date|short dates|regex|regexes) (.*)/) do |gender,should_or_should_not,multiple,words|
-    flunk("A popup with message: '#{visible_popup.message}' is in the way!") if blocked_by_popup?
+    flunk("A popup with message: '#{browser.popup_message}' is in the way!") if blocked_by_popup?
    
     words = words.scan(/('([^']*)'|"([^"]*)")/).to_a.map{ |w| w[1] || w[2] }    
     words = words.map(&:strip)
@@ -40,9 +40,9 @@ steps_for(:inspection) do
 
     error_words = []
     words.each do |word|                  
-      begin      
-        response.body.gsub(/\s+/, ' ').should match(/#{word}/)
-      rescue
+      begin
+        browser.body.gsub(/\s+/, ' ').should match(/#{word}/)        
+      rescue Exception => e
         error_words << word      
       end
     end
@@ -66,11 +66,14 @@ steps_for(:inspection) do
   
   # Then he should be redirected by javascript
   Then(/(he|she) should be redirected by javascript/) do |gender|
-    redirector_match = response.body.match(/(document|window).location.href(\s+)=(\s+)"(.*)";?/)
+    
+    return if selenium?
+    
+    redirector_match = browser.body.match(/(document|window).location.href(\s+)=(\s+)"(.*)";?/)
     
     if redirector_match
       url = redirector_match[4];
-      visits(url)
+      browser.visits(url)
     else
       flunk("No redirect javascript code was found!")
     end
@@ -78,17 +81,29 @@ steps_for(:inspection) do
   end
   
   # Then he should see a popup saying 'Are you sure?'
-  Then(/(he|she) should see a popup with the message '(.*)'/) do |gender,message|    
-    flunk("No popup was visible") if !blocked_by_popup?    
-    if visible_popup.message != message
-      flunk("Popup message was: '#{visible_popup.message}' and not '#{message}'")
-    end    
+  Then(/(he|she) should see a popup with the message '(.*)'/) do |gender,message|
+    
+    if selenium?
+      
+      seen_message = browser.selenium.get_confirmation
+      if seen_message != message
+        flunk("Popup message was: '#{seen_message}' and not '#{message}'")
+      end
+      
+    else
+      
+      flunk("No popup was visible") if !blocked_by_popup?    
+      if visible_popup.message != message
+        flunk("Popup message was: '#{browser.popup_message}' and not '#{message}'")
+      end    
+      
+    end
   end
   
   # Then he should see errors
   Then(/(he|she) should see errors/) do
-    flunk("A popup with message: '#{visible_popup.message}' is in the way!") if blocked_by_popup?
-    response.should have_tag("div#errorExplanation")
+    flunk("A popup with message: '#{browser.popup_message}' is in the way!") if blocked_by_popup?
+    browser.body.should have_tag("div#errorExplanation")
   end
   
 end

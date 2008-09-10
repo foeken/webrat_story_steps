@@ -1,0 +1,35 @@
+Author:      Andre Foeken - Nedap
+Article:     http://www.movesonrails.com/
+Bug Tracker: http://nedaphealthcare.lighthouseapp.com/projects/15738/home
+
+NOTE: All this has only been tested under osx
+
+Using your stories to drive selenium is a breeze when you are using the webrat story steps. You need to do some legwork first by installing the items:
+
+A.) Install selenium plugin from github - http://github.com/wolfdancer/selenium/tree
+B.) Install selenium-specr plugin from github - http://github.com/tobytripp/selenium-specr/tree
+
+C.) Install gem diff-lcs (dependency selenium-specr)
+D.) Install gem rubigen (dependency selenium-specr)
+
+* Make sure you have Firefox installed (!)
+
+For now you have to run the specs, selenium server and application server by hand. Now let's get started.
+
+First we need a story. Any story will do. Currently each story has a 'story.txt' file and a 'story_spec.rb' file. 
+We will add a 'story_selenium_spec.rb' for the story we want to run through selenium. 
+(An example is provided by the plugin but manually changing the 'webrat_helper' to 'selenium_helper' also does the trick)
+
+1.) Run './script/generate stories' again if you installed the previous version without selenium support. It will add the helper to your stories directory.
+
+2.) Run 'rake selenium:configure' to create a selenium config file in 'config/selenium.yml'. Make sure you change the browser setting to 'chrome' (I didn't get it to work using the firefox setting). Don't worry, it'll still run the tests in firefox not the recently released Chrome browser.
+
+3.) Now run your app in test mode: './script/server -e test'
+
+4.) Kickstart the selenium server: 'rake selenium:start'
+
+5.) Now run your spec: 'ruby stories/story_selenium_spec.rb'
+
+Note: selenium-specr seems to be the cause of this annoying message in every rake command 
+      "--- Running Selenium tests in spec/selenium/**/**.rb ..." 
+

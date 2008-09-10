@@ -2,7 +2,7 @@ steps_for(:debug) do
   
   # Then show the page
   Then(/show the page/) do 
-    flunk("A popup with message: #{visible_popup.message} is in the way!") if blocked_by_popup?
+    flunk("A popup with message: #{browser.popup_message} is in the way!") if blocked_by_popup?
     save_and_open_page
   end
   
