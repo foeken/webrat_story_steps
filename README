@@ -4,11 +4,14 @@ Bug Tracker: http://nedaphealthcare.lighthouseapp.com/projects/15738/home
 
 Selection of commonly used steps to speed up rspec story creation.
 
-Dependencies:
+Install:
 
 - Rspec
 - Rspec On Rails
 - Chronic
+
+- This plugin
+  CLONE @ git://github.com/foeken/webrat_story_steps.git
 
 - Adapted Webrat plugin (http://github.com/foeken/webrat)
   CLONE @ git://github.com/foeken/webrat.git
@@ -29,3 +32,7 @@ Customizing:
 You can add you own steps (that apply ONLY to your app) to the custom_steps directory that was generated. Just as you would have added normal Rspec steps. Please submit any general steps!
 
 Note that these steps should mix with any steps you have already defined as long as the step group names differ.
+
+Selenium:
+
+Read the SELENIUm file for more info on how to drive selenium with these same steps! (No changes required to your stories)
