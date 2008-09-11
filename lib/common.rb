@@ -1,4 +1,5 @@
 # Include dependencies
+require 'spec/story'
 require 'spec/rails/story_adapter'
 require 'webrat'
 require 'chronic'
