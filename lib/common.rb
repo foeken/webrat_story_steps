@@ -94,29 +94,28 @@ module WebratStorySteps
       return value
     end
     
-    def login username, password
+    def login username, password       
       if selenium?
-        browser.visits "/login"
-        browser.fills_in "username", :with => username
-        browser.fills_in "password", :with => password
-        browser.clicks_button
+    	browser_object = browser
       else
-        
-        visits "/login"
-        fills_in "username", :with => username
-        fills_in "password", :with => password
-        clicks_button
-        
+    	browser_object = self 
+      end      
+      
+      browser_object.visits "/login"
+      browser_object.fills_in "username", :with => username      
+      browser_object.fills_in "password", :with => password
+      browser_object.clicks_button      
+       
+      if !selenium?
         begin      
           body.should match(/1.*/)
           visits '/'
         rescue
           flunk "Cannot login using these credentials. Perhaps reference user is not correct?"
         end
-        
-      end
+      end              
     end
-    
+           
     def logout
       if selenium?
         browser.visits '/login/destroy'

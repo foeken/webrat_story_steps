@@ -18,38 +18,38 @@ end
 
 def prepare_words(words, multiple)
 
-    words = words.scan(/('([^']*)'|"([^"]*)")/).to_a.map{ |w| w[1] || w[2] }    
-    words = words.map(&:strip)
+  words = words.scan(/('([^']*)'|"([^"]*)")/).to_a.map{ |w| w[1] || w[2] }    
+  words = words.map(&:strip)
     
-    # Enable correct quoting...
-    words = words.map do |word|      
-      if word.starts_with?("'")
-        if word.ends_with?("'")
-          word = word[(1..word.length-2)]
-        else
-          flunk("Syntax error: #{word} started with a quote but did not end with one...")
-        end
-      elsif word.starts_with?('"')
-        if word.ends_with?('"')
-          word = word[(1..word.length-2)]
-        else
-          flunk("Syntax error: #{word} started with a double quote but did not end with one...")
-        end
+  # Enable correct quoting...
+  words = words.map do |word|      
+    if word.starts_with?("'")
+      if word.ends_with?("'")
+        word = word[(1..word.length-2)]
       else
-        word
-      end      
-    end
+        flunk("Syntax error: #{word} started with a quote but did not end with one...")
+      end
+    elsif word.starts_with?('"')
+      if word.ends_with?('"')
+        word = word[(1..word.length-2)]
+      else
+        flunk("Syntax error: #{word} started with a double quote but did not end with one...")
+      end
+    else
+      word
+    end      
+  end
   
-    if multiple == "long date" || multiple == "long dates"
-      words = words.map{ |d| Chronic.parse(d).to_date.to_s(:long) }
-    elsif multiple == "short date" || multiple == "short dates"
-      words = words.map{ |d| Chronic.parse(d).to_date.to_s(:euro_date_part) }
-    end
+  if multiple == "long date" || multiple == "long dates"
+    words = words.map{ |d| Chronic.parse(d).to_date.to_s(:long) }
+  elsif multiple == "short date" || multiple == "short dates"
+    words = words.map{ |d| Chronic.parse(d).to_date.to_s(:euro_date_part) }
+  end
   
-    if multiple != "regex" && multiple != "regexes"
-      words = words.map{ |d| Regexp.escape(d) }
-    end
-    return words
+  if multiple != "regex" && multiple != "regexes"
+    words = words.map{ |d| Regexp.escape(d) }
+  end
+  return words
 end
 
 steps_for(:inspection) do
