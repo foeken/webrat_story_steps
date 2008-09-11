@@ -276,7 +276,7 @@ steps_for(:models) do
   # Then the user with username 'Dummy' should be planner       => User.planner?
   Then(/the (.*) with (.*) '(.*)' should (be|not be) (.*)/) do |klass,attribute,value,be_or_not_be,method|    
     
-    flunk("A popup with message: '#{visible_popup.message}' is in the way!") if blocked_by_popup?
+    flunk("A popup with message: '#{browser.popup_message}' is in the way!") if blocked_by_popup?
     
     begin      
       klass = convert_klass(klass)
@@ -300,7 +300,7 @@ steps_for(:models) do
   # Then it should be planner       => User.planner?
   Then(/it should (be|not be) (.*)/) do |be_or_not_be,method|    
     
-    flunk("A popup with message: '#{visible_popup.message}' is in the way!") if blocked_by_popup?
+    flunk("A popup with message: '#{browser.popup_message}' is in the way!") if blocked_by_popup?
     
     begin      
       klass = convert_klass(klass)

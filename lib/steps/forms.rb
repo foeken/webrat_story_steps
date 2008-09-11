@@ -32,8 +32,10 @@ steps_for(:forms) do
     if !field_name && order == "the"
       field_name = field
     end
-            
-    fills_in field_name, :with => value
+    
+    flunk "Cannot find the field you are looking for..." if !field_name
+    
+    browser.fills_in field_name, :with => value
   end
 
   # When he fills the 'End of care' date field with 'tomorrow'
@@ -50,10 +52,10 @@ steps_for(:forms) do
       when "the third"        
         counter = 2
     end
-    
+        
     begin
       assert_select("label", field) do |elements|
-        elements.each do |element|
+        elements.each do |element|          
           if counter == 0
             field_name = element["for"]
             break
@@ -61,48 +63,54 @@ steps_for(:forms) do
           counter -= 1
         end
       end
-    rescue    
+    rescue Exception => e
+      y e 
     end
       
     if !field_name
       flunk("Cannot find the field you meant...")
     end
 
-    fills_in "#{field_name}_3i", :with => value.day
-    fills_in "#{field_name}_2i", :with => value.month
-    fills_in "#{field_name}_1i", :with => value.year
+    browser.fills_in "#{field_name}_3i", :with => value.day
+    browser.fills_in "#{field_name}_2i", :with => value.month
+    browser.fills_in "#{field_name}_1i", :with => value.year
   end
   
   # When he clicks the button
   When(/(he|she) clicks the button/) do |gender|
-    clicks_button
+    browser.clicks_button
+  end
+  
+  # When he clicks the 'Create' button
+  When(/(he|she) clicks the '(.*)' button/) do |gender,button_text|
+    browser.clicks_button(button_text)
   end
   
   # When he selects 'Partner name'
   When(/(he|she) selects '(.*)'/) do |gender,value|
-    selects(value)      
+    browser.selects(value)
   end
   
   # When he picks 'Partner name' (for both select/radio fields)
   When(/(he|she) picks '(.*)'/) do |gender,value|
     begin
-      chooses(value)
+      browser.chooses(value)
     rescue
-      selects(value)
+      browser.selects(value)
     end
   end
   
   # When he chooses 'Male'
   When(/(he|she) chooses '(.*)'/) do |gender,value|
-    chooses(value)
+    browser.chooses(value)
   end
   
   # When he (un)checks 'Enabled'
   When(/(he|she) (checks|unchecks) '(.*)'/) do |gender,checks_or_unchecks,value|
     if checks_or_unchecks == "checks"
-      checks(value)
+      browser.checks(value)
     else
-      unchecks(value)
+      browser.unchecks(value)
     end
   end
         

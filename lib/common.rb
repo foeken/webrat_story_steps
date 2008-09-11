@@ -22,7 +22,8 @@ module WebratStorySteps
     # I know this part is ugly, will need to be refactored. At least the uglyness is focussed on this point!    
     @@datetime_attributes = {}
     @@required_attributes = {}
-    
+    @@browser             = nil
+        
     # Set the attributes that should be handled as date time parsable
     def set_datetime_attributes hash
       @@datetime_attributes = hash
@@ -41,6 +42,34 @@ module WebratStorySteps
     # Sets the required attributes for the given class
     def set_required_attributes_for klass, attributes
       @@required_attributes[klass.downcase.to_sym] = attributes
+    end
+    
+    def set_browser browser
+      @@browser = browser
+    end
+    
+    def browser
+      @@browser || self
+    end
+    
+    def selenium?
+      defined?(Selenium)
+    end
+
+    def body
+      if selenium?
+        response_body
+      else
+        response.body
+      end
+    end
+    
+    def popup_message
+      if selenium?
+        browser.selenium.get_confirmation
+      else
+        visible_popup.message
+      end
     end
     
     #
@@ -65,24 +94,39 @@ module WebratStorySteps
       return value
     end
     
-    #
-    # SITE SPECIFIC ACTIONS
-    #
-    
-    # Log in to the site with given username and password
-    # - Override or change this method for you own site
     def login username, password
-      visits login_path
-      fills_in "username", :with => username
-      fills_in "password", :with => password
-      clicks_button
+      if selenium?
+        browser.visits "/login"
+        browser.fills_in "username", :with => username
+        browser.fills_in "password", :with => password
+        browser.clicks_button
+      else
+        
+        visits "/login"
+        fills_in "username", :with => username
+        fills_in "password", :with => password
+        clicks_button
+        
+        begin      
+          body.should match(/1.*/)
+          visits '/'
+        rescue
+          flunk "Cannot login using these credentials. Perhaps reference user is not correct?"
+        end
+        
+      end
     end
     
-    # Log out of the site
-    # - Override or change this method for you own site
     def logout
-      visits '/login/destroy'
+      if selenium?
+        browser.visits '/login/destroy'
+      else
+        visits '/login/destroy'
+      end
     end
-        
+            
   end
+    
 end
+
+
