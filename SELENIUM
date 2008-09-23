@@ -9,15 +9,9 @@ Using your stories to drive selenium is a breeze when you are using the webrat s
 A.) Install selenium plugin from github
     CLONE @ git://github.com/wolfdancer/selenium.git
 
-B.) Install selenium-specr plugin from github
-    CLONE @ git://github.com/tobytripp/selenium-specr.git
+* Make sure you have Firefox installed in /Applications/Firefox.app (!)
 
-C.) Install gem diff-lcs (dependency selenium-specr)
-D.) Install gem rubigen (dependency selenium-specr)
-
-* Make sure you have Firefox installed (!)
-
-For now you have to run the specs, selenium server and application server by hand. Now let's get started.
+For now you have to run the stories by hand.  Now let's get started.
 
 First we need a story. Any story will do. Currently each story has a 'story.txt' file and a 'story_spec.rb' file. 
 We will add a 'story_selenium_spec.rb' for the story we want to run through selenium. 
@@ -25,14 +19,6 @@ We will add a 'story_selenium_spec.rb' for the story we want to run through sele
 
 1.) Run './script/generate stories' again if you installed the previous version without selenium support. It will add the helper to your stories directory.
 
-2.) Run 'cp vendor/plugins/selenium-specr/config/selenium.yml config/selenium.yml' to create a selenium config file in 'config/selenium.yml'. Make sure you change the browser setting to 'chrome' (I didn't get it to work using the firefox setting). Don't worry, it'll still run the tests in firefox not the recently released Chrome browser.
+2.) Kickstart the selenium server: 'rake selenium:start' this will start selenium, and run script/server with the correct arguments (-e test -p 3800 --debugger)
 
-3.) Now run your app in test mode: './script/server -e test'
-
-4.) Kickstart the selenium server: 'rake selenium:start'
-
-5.) Now run your spec: 'ruby stories/story_selenium_spec.rb'
-
-Note: selenium-specr seems to be the cause of this annoying message in every rake command 
-      "--- Running Selenium tests in spec/selenium/**/**.rb ..." 
-
+3.) Now run your story: 'ruby stories/story_selenium_spec.rb'
