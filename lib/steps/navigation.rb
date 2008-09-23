@@ -1,4 +1,9 @@
 steps_for(:navigation) do
+  # When he visits '/pages'
+  When(/(he|she) visits ('|")(.*)('|")/) do |gender, single_or_double_1, url, single_or_double_2|
+    puts url + "============================="
+    browser.visits(url)
+  end
 
   # When he clicks the 'Employees' link
   When(/(he|she) clicks (the|the first|the second|the third) ('|")(.*)('|") link/) do |gender,count,single_or_double_1,link,single_or_double_2|
