@@ -10,7 +10,6 @@ def blocked_by_popup?
 end
 
 class StoryDbListener
-   
   def scenario_succeeded(story, scenario)
     reset_database
   end
@@ -20,6 +19,7 @@ class StoryDbListener
   end
 
   def scenario_failed(story, scenario, error)
+    self.fail_count += 1
     reset_database
   end
 
@@ -28,14 +28,26 @@ class StoryDbListener
   end
   
   def run_ended
-   browser.selenium.stop() rescue nil
+    if self.fail_count < 1
+      browser.selenium.stop() rescue nil
+    end
   end
   
   def reset_database
-    database_name = ActiveRecord::Base.configurations[RAILS_ENV]['database']
-    `mysql -u root #{database_name} < selenium_backup.sql`
+    if File.exists?('selenium_backup.sql')
+      database_name = ActiveRecord::Base.configurations[RAILS_ENV]['database']
+      `mysql -u root #{database_name} < selenium_backup.sql`
+    end
   end  
   
+  protected
+  def fail_count
+    @fail_count ||= 0
+  end
+  
+  def fail_count=(value)
+    @fail_count = value
+  end
 end
 
 class Spec::Story::Runner::ScenarioRunner
