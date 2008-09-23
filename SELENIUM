@@ -14,11 +14,11 @@ A.) Install selenium plugin from github
 For now you have to run the stories by hand.  Now let's get started.
 
 First we need a story. Any story will do. Currently each story has a 'story.txt' file and a 'story_spec.rb' file. 
-We will add a 'story_selenium_spec.rb' for the story we want to run through selenium. 
-(An example is provided by the plugin but manually changing the 'webrat_helper' to 'selenium_helper' also does the trick)
+We no longer need to add anything to the story to run via selenium.
 
 1.) Run './script/generate stories' again if you installed the previous version without selenium support. It will add the helper to your stories directory.
 
-2.) Kickstart the selenium server: 'rake selenium:start' this will start selenium, and run script/server with the correct arguments (-e test -p 3800 --debugger)
+2.) Start selenium server and mongrel/webrick: 'rake selenium:start'
+    This will start selenium, and run script/server with the correct arguments (-e test -p 3800 --debugger)
 
-3.) Now run your story: 'ruby stories/story_selenium_spec.rb'
+3.) Now run your story with the SELENIUM variable set: 'SELENIUM=true ruby stories/story_spec.rb'

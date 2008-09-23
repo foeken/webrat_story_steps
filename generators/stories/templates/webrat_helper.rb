@@ -8,3 +8,7 @@ include WebratStorySteps::Site
 Dir[File.expand_path("#{File.dirname(__FILE__)}/custom_steps/*.rb")].uniq.each do |file|
   require file
 end
+
+if ENV['SELENIUM']
+  require File.expand_path(File.dirname(__FILE__) + "/selenium_helper")
+end
