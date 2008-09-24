@@ -11,7 +11,6 @@ class StoriesGenerator < Rails::Generator::Base
       
       
       m.file      'example_story_spec.rb','stories/examples/example_story_spec.rb'
-      m.file      'example_story_spec.rb','stories/examples/example_story_selenium_spec.rb'
       m.file      'example_story.txt','stories/examples/example_story.txt'
       
     end
