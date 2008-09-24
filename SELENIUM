@@ -2,7 +2,10 @@ Author:      Andre Foeken - Nedap
 Article:     http://www.movesonrails.com/
 Bug Tracker: http://nedaphealthcare.lighthouseapp.com/projects/15738/home
 
+Special thanks: Notch8 for making the rake stuff work like it should
+
 NOTE: All this has only been tested under osx
+NOTE: Updating from previous version? Remove the selenium-specr plugin!
 
 Using your stories to drive selenium is a breeze when you are using the webrat story steps. You need to do some legwork first by installing the items:
 
@@ -19,6 +22,8 @@ We no longer need to add anything to the story to run via selenium.
 1.) Run './script/generate stories' again if you installed the previous version without selenium support. It will add the helper to your stories directory.
 
 2.) Start selenium server and mongrel/webrick: 'rake selenium:start'
-    This will start selenium, and run script/server with the correct arguments (-e test -p 3800 --debugger)
+    This will start selenium, and run script/server with the correct arguments (-e test -p 3000 --debugger)
 
 3.) Now run your story with the SELENIUM variable set: 'SELENIUM=true ruby stories/story_spec.rb'
+
+NOTE: If you want specific environment stuff in your selenium session just create a selenium environment / database config and it will default to that.
