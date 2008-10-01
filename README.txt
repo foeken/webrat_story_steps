@@ -1,3 +1,9 @@
+= Webrat Story Steps collection
+
+* http://www.movesonrails.com/articles/2008/08/19/webrat-story-steps
+
+== DESCRIPTION:
+
 Author:      Andre Foeken - Nedap
 Article:     http://www.movesonrails.com/articles/2008/08/19/webrat-story-steps
 Bug Tracker: http://nedaphealthcare.lighthouseapp.com/projects/15738/home
